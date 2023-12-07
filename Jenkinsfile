@@ -19,15 +19,15 @@ pipeline {
                     git 'https://github.com/thinkC/ecommerce.git'
 
                     // Build Docker image
-                    sh 'docker build -t thinkc/ecommerce-app1:latest .'
+                    bat 'docker build -t thinkc/ecommerce-app1:latest .'
 
                     // Log in to Docker Hub
                     withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-                        sh "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
+                        bat "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
                     }
 
                     // Push Docker image to Docker Hub
-                    sh 'docker push thinkc/ecommerce-app1:latest'
+                    bat 'docker push thinkc/ecommerce-app1:latest'
                 }
             }
         }
@@ -36,11 +36,14 @@ pipeline {
             steps {
                 script {
                     // Apply Kubernetes manifests
-                    sh 'kubectl apply -f deployment.yaml'
+                    bat 'kubectl apply -f deployment.yaml'
                 // Create or update Kubernetes Service
-                sh 'kubectl apply -f service.yaml'
+                bat 'kubectl apply -f service.yaml'
                 }
             }
         }
     }
 }
+
+
+
