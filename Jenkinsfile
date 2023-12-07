@@ -7,8 +7,12 @@ pipeline {
         git 'Git'
     }
 
+    // environment {
+    //     DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+    // }
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+        DOCKER_USERNAME = credentials('docker-hub-username')
+        DOCKER_PASSWORD = credentials('docker-hub-password')
     }
 
     stages {
@@ -26,10 +30,13 @@ pipeline {
                     //     bat "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
                     // }
 
-                    // Log in to Docker Hub
-                    withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-                        bat 'docker login -u thinkc --password-stdin'
-                    }
+                    // // Log in to Docker Hub
+                    // withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
+                    //     bat 'docker login -u thinkc --password-stdin'
+                    // }
+
+                    // login to docker using docker credentials
+                    bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
 
                     // Push Docker image to Docker Hub
                     bat 'docker push thinkc/ecommerce-app1:latest'
