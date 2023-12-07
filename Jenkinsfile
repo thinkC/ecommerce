@@ -21,9 +21,14 @@ pipeline {
                     // Build Docker image
                     bat 'docker build -t thinkc/ecommerce-app1:latest .'
 
+                    // // Log in to Docker Hub
+                    // withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
+                    //     bat "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
+                    // }
+
                     // Log in to Docker Hub
                     withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-                        bat "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
+                        bat 'docker login -u thinkc --password-stdin'
                     }
 
                     // Push Docker image to Docker Hub
