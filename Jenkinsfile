@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            // Use the same Docker image as your application
-            image 'node:18-alpine'
-        }
-    }
+    agent any
 
     tools {
         // Define the Node.js installation configured in Jenkins
