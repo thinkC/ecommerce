@@ -18,12 +18,7 @@ pipeline {
 
     stages {
         stage('Build and Push Docker Image') {
-            agent {
-                docker {
-                    // Use the same Docker image as your application
-                    image 'node:18-alpine'
-                }
-            }
+
             steps {
                 script {
                     // Pull the source code from version control
