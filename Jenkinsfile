@@ -11,9 +11,9 @@ pipeline {
     //     DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
     // }
     environment {
-        // DOCKER_USERNAME = credentials('docker-hub-username')
+        DOCKER_USERNAME = credentials('docker-hub-username')
         DOCKER_PASSWORD = credentials('docker-hub-password')
-        bat "echo %DOCKER_PASSWORD%"
+        
     }
 
     stages {
@@ -38,6 +38,8 @@ pipeline {
 
                     // login to docker using docker credentials
                     // bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
+                    bat "echo %DOCKER_USERNAME%"
+                    bat "echo %DOCKER_PASSWORD%"
                     bat 'echo %DOCKER_PASSWORD% | docker login -u thinkc --password-stdin'
 
                     // Push Docker image to Docker Hub
