@@ -4,6 +4,7 @@ pipeline {
     tools {
         // Define the Node.js installation configured in Jenkins
         nodejs 'NodeJS'
+        git 'Git'
     }
 
     environment {
