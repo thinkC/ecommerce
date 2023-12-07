@@ -17,7 +17,13 @@ pipeline {
     // }
 
     stages {
-        stage('Build') {
+        stage('Build and Push Docker Image') {
+            agent {
+                docker {
+                    // Use the same Docker image as your application
+                    image 'node:18-alpine'
+                }
+            }
             steps {
                 script {
                     // Pull the source code from version control
@@ -65,6 +71,55 @@ pipeline {
         }
     }
 }
+
+
+//////////////
+
+// pipeline {
+//     agent any
+
+//     tools {
+//         // Specify the Git installation configured in Jenkins
+//         git 'NameOfYourGitInstallation'
+//         // ...
+//     }
+
+//     stages {
+//         stage('Build and Push Docker Image') {
+//             agent {
+//                 docker {
+//                     // Use the same Docker image as your application
+//                     image 'node:18-alpine'
+//                 }
+//             }
+//             steps {
+//                 script {
+//                     // Pull the source code from version control
+//                     git 'https://github.com/your-username/ecommerce-app.git'
+
+//                     // Build and push Docker image using Docker Hub credentials
+//                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+//                         sh 'docker build -t your-registry/ecommerce-app:latest .'
+//                         sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+//                         sh 'docker push your-registry/ecommerce-app:latest'
+//                     }
+//                 }
+//             }
+//         }
+
+//         stage('Deploy to Kubernetes') {
+//             steps {
+//                 script {
+//                     // Apply Kubernetes manifests
+//                     sh 'kubectl apply -f deployment.yaml'
+
+//                     // Rolling restart of pods to apply changes
+//                     sh 'kubectl rollout restart deployment your-deployment-name'
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
