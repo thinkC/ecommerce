@@ -13,6 +13,7 @@ pipeline {
     environment {
         // DOCKER_USERNAME = credentials('docker-hub-username')
         DOCKER_PASSWORD = credentials('docker-hub-password')
+        bat "echo %DOCKER_PASSWORD%"
     }
 
     stages {
