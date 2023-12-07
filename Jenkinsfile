@@ -10,11 +10,11 @@ pipeline {
     // environment {
     //     DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
     // }
-    environment {
-        DOCKER_USERNAME = credentials('docker-hub-username')
-        DOCKER_PASSWORD = credentials('docker-hub-password')
+    // environment {
+    //     DOCKER_USERNAME = credentials('docker-hub-username')
+    //     DOCKER_PASSWORD = credentials('docker-hub-password')
         
-    }
+    // }
 
     stages {
         stage('Build') {
@@ -38,10 +38,15 @@ pipeline {
 
                     // login to docker using docker credentials
                     // bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
-                    bat "echo %DOCKER_USERNAME%"
-                    bat "echo %DOCKER_PASSWORD%"
-                    bat 'echo %DOCKER_PASSWORD% | docker login -u thinkc --password-stdin'
+                    // bat "echo %DOCKER_USERNAME%"
+                    // bat "echo %DOCKER_PASSWORD%"
+                    // bat 'echo %DOCKER_PASSWORD% | docker login -u thinkc --password-stdin'
 
+                    // Build and push Docker image using Docker Hub credentials
+                    docker.withRegistry('https://registry-1.docker.io', 'docker-hub-credentials1') {
+                        def customImage = docker.build("thinkc/ecommerce-app:latest1")
+                        customImage.push()
+                    }
                     // Push Docker image to Docker Hub
                     bat 'docker push thinkc/ecommerce-app1:latest'
                 }
