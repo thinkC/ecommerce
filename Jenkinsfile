@@ -19,7 +19,7 @@ pipeline {
                     sh 'docker build -t thinkc/ecommerce-app2:latest .'
 
                     // Build and push Docker image using Docker Hub credentials
-                    docker.withRegistry('https://registry-1.docker.io', 'docker-hub-credentials1') {
+                    docker.withRegistry('https://registry-1.docker.io', 'docker-hub-credentials') {
                         def customImage = docker.build("thinkc/ecommerce-app2:latest")
                         customImage.push()
                     }
