@@ -19,11 +19,12 @@ pipeline {
                     git 'https://github.com/thinkC/ecommerce.git'
 
                     // Build Docker image
-                    // sh 'docker build -t thinkc/ecommerce-app3:latest .'
+                    sh 'docker build -t thinkc/ecommerce-app2:latest .'
 
                     // // Build and push Docker image using Docker Hub credentials
                     docker.withRegistry('https://registry-1.docker.io','docker-hub-credentials') {
-                        def customImage = docker.build("thinkc/ecommerce-app4:latest")
+                        def customImage = docker.build("thinkc/ecommerce-app2:latest")
+                        // Push Docker image to Docker Hub
                         customImage.push()
 
 
