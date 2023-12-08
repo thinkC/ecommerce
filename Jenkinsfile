@@ -29,16 +29,16 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    // Apply Kubernetes manifests
-                    sh 'kubectl apply -f deployment.yaml'
-                // Create or update Kubernetes Service
-                sh 'kubectl apply -f service.yaml'
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         script {
+        //             // Apply Kubernetes manifests
+        //             sh 'kubectl apply -f deployment.yaml'
+        //         // Create or update Kubernetes Service
+        //         sh 'kubectl apply -f service.yaml'
+        //         }
+        //     }
+        // }
     }
 }
 
