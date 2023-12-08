@@ -19,15 +19,22 @@ pipeline {
                     git 'https://github.com/thinkC/ecommerce.git'
 
                     // Build Docker image
-                    sh 'docker build -t thinkc/ecommerce-app3:latest .'
+                    // sh 'docker build -t thinkc/ecommerce-app3:latest .'
 
-                    // Build and push Docker image using Docker Hub credentials
-                    docker.withRegistry('https://registry-1.docker.io','docker-hub-credentials') {
-                        def customImage = docker.build("thinkc/ecommerce-app3:latest")
-                        // customImage.push()
-                    }
-                    // Push Docker image to Docker Hub
-                    sh 'docker push thinkc/ecommerce-app3:latest'
+                    // // Build and push Docker image using Docker Hub credentials
+                    // docker.withRegistry('https://registry-1.docker.io','docker-hub-credentials') {
+                    //     def customImage = docker.build("thinkc/ecommerce-app3:latest")
+                    //     customImage.push()
+                    // }
+                    // // Push Docker image to Docker Hub
+                    // sh 'docker push thinkc/ecommerce-app3:latest'
+
+
+
+                         script {
+                            sh 'docker build -t thinkc/ecommerce-app4:latest .'
+                            sh 'docker push thinkc/ecommerce-app4:latest'
+                        }
                 }
             }
         }
