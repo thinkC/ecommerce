@@ -1,76 +1,3 @@
-// pipeline {
-//     agent any
-
-//     tools {
-//         // Define the Node.js installation configured in Jenkins
-//         nodejs 'NodeJS'
-//         git 'Git'
-//     }
-
-//     // environment {
-//     //     DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
-//     // }
-//     // environment {
-//     //     DOCKER_USERNAME = credentials('docker-hub-username')
-//     //     DOCKER_PASSWORD = credentials('docker-hub-password')
-        
-//     // }
-
-//     stages {
-//         stage('Build and Push Docker Image') {
-
-//             steps {
-//                 script {
-//                     // Pull the source code from version control
-//                     git 'https://github.com/thinkC/ecommerce.git'
-
-//                     // Build Docker image
-//                     bat 'docker build -t thinkc/ecommerce-app2:latest .'
-
-//                     // // Log in to Docker Hub
-//                     // withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-//                     //     bat "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
-//                     // }
-
-//                     // // Log in to Docker Hub
-//                     // withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
-//                     //     bat 'docker login -u thinkc --password-stdin'
-//                     // }
-
-//                     // login to docker using docker credentials
-//                     // bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
-//                     // bat "echo %DOCKER_USERNAME%"
-//                     // bat "echo %DOCKER_PASSWORD%"
-//                     // bat 'echo %DOCKER_PASSWORD% | docker login -u thinkc --password-stdin'
-
-//                     // Build and push Docker image using Docker Hub credentials
-//                     docker.withRegistry('https://registry-1.docker.io', 'docker-hub-credentials1') {
-//                         def customImage = docker.build("thinkc/ecommerce-app2:latest")
-//                         customImage.push()
-//                     }
-//                     // Push Docker image to Docker Hub
-//                     bat 'docker push thinkc/ecommerce-app2:latest'
-//                 }
-//             }
-//         }
-
-//         stage('Deploy to Kubernetes') {
-//             steps {
-//                 script {
-//                     // Apply Kubernetes manifests
-//                     bat 'kubectl apply -f deployment.yaml'
-//                 // Create or update Kubernetes Service
-//                 bat 'kubectl apply -f service.yaml'
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-///###  for linux///
-
-
 pipeline {
     agent any
 
@@ -98,7 +25,23 @@ pipeline {
                     git 'https://github.com/thinkC/ecommerce.git'
 
                     // Build Docker image
-                    sh 'docker build -t thinkc/ecommerce-app2:latest .'
+                    bat 'docker build -t thinkc/ecommerce-app2:latest .'
+
+                    // // Log in to Docker Hub
+                    // withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
+                    //     bat "echo $DOCKER_HUB_CREDENTIALS | docker login -u thinkc --password-stdin"
+                    // }
+
+                    // // Log in to Docker Hub
+                    // withCredentials([string(credentialsId: 'docker-hub-credentials', variable: 'DOCKER_HUB_CREDENTIALS')]) {
+                    //     bat 'docker login -u thinkc --password-stdin'
+                    // }
+
+                    // login to docker using docker credentials
+                    // bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin'
+                    // bat "echo %DOCKER_USERNAME%"
+                    // bat "echo %DOCKER_PASSWORD%"
+                    // bat 'echo %DOCKER_PASSWORD% | docker login -u thinkc --password-stdin'
 
                     // Build and push Docker image using Docker Hub credentials
                     docker.withRegistry('https://registry-1.docker.io', 'docker-hub-credentials1') {
@@ -106,7 +49,7 @@ pipeline {
                         customImage.push()
                     }
                     // Push Docker image to Docker Hub
-                    sh 'docker push thinkc/ecommerce-app2:latest'
+                    bat 'docker push thinkc/ecommerce-app2:latest'
                 }
             }
         }
@@ -115,14 +58,71 @@ pipeline {
             steps {
                 script {
                     // Apply Kubernetes manifests
-                    sh 'kubectl apply -f deployment.yaml'
+                    bat 'kubectl apply -f deployment.yaml'
                 // Create or update Kubernetes Service
-                sh 'kubectl apply -f service.yaml'
+                bat 'kubectl apply -f service.yaml'
                 }
             }
         }
     }
 }
+
+
+///###  for linux///
+
+
+// pipeline {
+//     agent any
+
+//     tools {
+//         // Define the Node.js installation configured in Jenkins
+//         nodejs 'NodeJS'
+//         git 'Git'
+//     }
+
+//     // environment {
+//     //     DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+//     // }
+//     // environment {
+//     //     DOCKER_USERNAME = credentials('docker-hub-username')
+//     //     DOCKER_PASSWORD = credentials('docker-hub-password')
+        
+//     // }
+
+//     stages {
+//         stage('Build and Push Docker Image') {
+
+//             steps {
+//                 script {
+//                     // Pull the source code from version control
+//                     git 'https://github.com/thinkC/ecommerce.git'
+
+//                     // Build Docker image
+//                     sh 'docker build -t thinkc/ecommerce-app2:latest .'
+
+//                     // Build and push Docker image using Docker Hub credentials
+//                     docker.withRegistry('https://registry-1.docker.io', 'docker-hub-credentials1') {
+//                         def customImage = docker.build("thinkc/ecommerce-app2:latest")
+//                         customImage.push()
+//                     }
+//                     // Push Docker image to Docker Hub
+//                     sh 'docker push thinkc/ecommerce-app2:latest'
+//                 }
+//             }
+//         }
+
+//         stage('Deploy to Kubernetes') {
+//             steps {
+//                 script {
+//                     // Apply Kubernetes manifests
+//                     sh 'kubectl apply -f deployment.yaml'
+//                 // Create or update Kubernetes Service
+//                 sh 'kubectl apply -f service.yaml'
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
